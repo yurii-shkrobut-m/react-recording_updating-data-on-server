@@ -1,7 +1,7 @@
 import { User } from '../types';
-import { getData } from '../utils/httpClient';
+import { client } from '../utils/httpClient';
 
 export function getUsers() {
-  return getData<User[]>('/users')
+  return client.get<User[]>('/users')
     .then(users => users.slice(0, 11))
 }

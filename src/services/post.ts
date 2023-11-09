@@ -1,6 +1,14 @@
 import { Post } from '../types';
-import { getData } from '../utils/httpClient';
+import { client } from '../utils/httpClient';
 
 export function getUserPosts(userId: number) {
-  return getData<Post[]>(`/posts?userId=${userId}`)
+  return client.get<Post[]>(`/posts?userId=${userId}`)
+}
+
+export function deletePost(postId: number) {
+  return client.delete<number>(`/posts/${postId}`)
+}
+
+export function createPost({ userId, title, body }: Omit<Post, 'id'>) {
+  return client.post<Post>(`/posts`, { userId, title, body })
 }
