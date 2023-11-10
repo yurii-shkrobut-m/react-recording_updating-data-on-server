@@ -1,4 +1,7 @@
 const BASE_URL = 'https://mate.academy/students-api';
+const DEFAULT_HEADERS = {
+  'Content-Type': 'application/json; charset=utf-8',
+}
 
 const handleResponse = (response: Response) => {
   if (!response.ok) {
@@ -18,9 +21,18 @@ export const client = {
     const option = {
       method: 'POST',
       body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
+      headers: DEFAULT_HEADERS,
+    };
+
+    return fetch(BASE_URL + url, option)
+      .then(handleResponse);
+  },
+
+  patch<T>(url: string, data: any): Promise<T> {
+    const option = {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: DEFAULT_HEADERS,
     };
 
     return fetch(BASE_URL + url, option)
